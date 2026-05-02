@@ -44,7 +44,7 @@ public class Main {
 
                     break;
                 case 3:
-                    System.out.println("Saldo atual: R$ " + conta.getSaldo());
+                    System.out.printf("Saldo atual: R$ %.2f%n", conta.getSaldo());
 
                     break;
                 case 4:
