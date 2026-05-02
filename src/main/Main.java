@@ -79,6 +79,8 @@ public class Main {
                         break;
                     } else {
                         System.out.println("Conta não criada.");
+
+                        break;
                     }
                 case 5:
                     System.out.println("Saindo...");
