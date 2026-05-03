@@ -25,76 +25,94 @@ public class Main {
 
             switch (numeroDigitado) {
                 case 1:
-                    if (cliente == null) {
-                        System.out.print("Digite o seu nome: ");
-                        String nomeCliente = scanner.nextLine();
+                    cliente = criarConta(cliente, scanner);
 
-                        System.out.print("Digite o seu cpf: ");
-                        String cpfCliente = scanner.nextLine();
-
-                        cliente = new Cliente(nomeCliente, cpfCliente);
-
-                        System.out.println("Conta criada com sucesso.");
-
-                        break;
-                    } else {
-                        System.out.println("A conta já foi criada.");
-
-                        break;
-                    }
+                    break;
                 case 2:
-                    if (cliente != null) {
-                        System.out.print("Digite o valor do depósito: ");
-                        double valorDeposito = scanner.nextDouble();
+                    depositar(cliente, scanner);
 
-                        if (cliente.getConta().depositar(valorDeposito)) {
-                            System.out.println("Depósito realizado com sucesso.");
-                        } else {
-                            System.out.println("Valor inválido para o depósito.");
-                        }
-
-                        break;
-                    } else {
-                        System.out.println("Conta não criada.");
-
-                        break;
-                    }
+                    break;
                 case 3:
-                    if (cliente != null) {
-                        System.out.print("Digite o valor do saque: ");
-                        double valorSaque = scanner.nextDouble();
+                    sacar(cliente, scanner);
 
-                        if (cliente.getConta().sacar(valorSaque)) {
-                            System.out.println("Saque realizado com sucesso.");
-
-                            break;
-                        } else {
-                            System.out.println("Saldo insuficiente.");
-
-                            break;
-                        }
-                    } else {
-                        System.out.println("Conta não criada.");
-
-                        break;
-                    }
+                    break;
                 case 4:
-                    if (cliente != null) {
-                        System.out.printf("Saldo atual: R$ %.2f%n", cliente.getConta().getSaldo());
+                    consultarSaldo(cliente);
 
-                        break;
-                    } else {
-                        System.out.println("Conta não criada.");
-
-                        break;
-                    }
+                    break;
                 case 5:
-                    System.out.println("Saindo...");
+                    sair();
 
                     break;
                 default:
-                    System.out.println("Opção inválida.");
+                    opcaoInvalida();
             }
         } while (numeroDigitado != 5);
+    }
+
+    public static Cliente criarConta(Cliente cliente, Scanner scanner) {
+        if (cliente == null) {
+            System.out.print("Digite o seu nome: ");
+            String nomeCliente = scanner.nextLine();
+
+            System.out.print("Digite o seu cpf: ");
+            String cpfCliente = scanner.nextLine();
+
+            cliente = new Cliente(nomeCliente, cpfCliente);
+
+            System.out.println("Conta criada com sucesso.");
+
+            return cliente;
+        } else {
+            System.out.println("A conta já foi criada.");
+
+            return cliente;
+        }
+    }
+
+    public static void depositar(Cliente cliente, Scanner scanner) {
+        if (cliente != null) {
+            System.out.print("Digite o valor do depósito: ");
+            double valorDeposito = scanner.nextDouble();
+
+            if (cliente.getConta().depositar(valorDeposito)) {
+                System.out.println("Depósito realizado com sucesso.");
+            } else {
+                System.out.println("Valor inválido para o depósito.");
+            }
+        } else {
+            System.out.println("Conta não criada.");
+        }
+    }
+
+    public static void sacar(Cliente cliente, Scanner scanner) {
+        if (cliente != null) {
+            System.out.print("Digite o valor do saque: ");
+            double valorSaque = scanner.nextDouble();
+
+            if (cliente.getConta().sacar(valorSaque)) {
+                System.out.println("Saque realizado com sucesso.");
+            } else {
+                System.out.println("Saldo insuficiente.");
+            }
+        } else {
+            System.out.println("Conta não criada.");
+        }
+    }
+
+    public static void consultarSaldo(Cliente cliente) {
+        if (cliente != null) {
+            System.out.printf("Saldo atual: R$ %.2f%n", cliente.getConta().getSaldo());
+        } else {
+            System.out.println("Conta não criada.");
+        }
+    }
+
+    public static void sair() {
+        System.out.println("Saindo...");
+    }
+
+    public static void opcaoInvalida() {
+        System.out.println("Opção inválida.");
     }
 }
