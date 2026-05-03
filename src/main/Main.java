@@ -41,7 +41,7 @@ public class Main {
     }
 
     public static Cliente criarConta(Cliente cliente, Scanner scanner) {
-        if (cliente == null) {
+        if (verificarCliente(cliente)) {
             System.out.print("Digite o seu nome: ");
             String nomeCliente = scanner.nextLine().trim();
 
@@ -73,14 +73,18 @@ public class Main {
     }
 
     public static void depositar(Cliente cliente, Scanner scanner) {
-        if (cliente != null) {
+        if (verificarCliente(cliente)) {
             System.out.print("Digite o valor do depósito: ");
             double valorDeposito = scanner.nextDouble();
 
-            if (cliente.getConta().depositar(valorDeposito)) {
+            scanner.nextLine();
+
+            if (verificarDeposito(valorDeposito)) {
+                cliente.getConta().depositar(valorDeposito);
+
                 System.out.println("Depósito realizado com sucesso.");
             } else {
-                System.out.println("Valor inválido para o depósito.");
+                System.out.println("Valor inválido para depósito.");
             }
         } else {
             System.out.println("Conta não criada.");
@@ -88,14 +92,20 @@ public class Main {
     }
 
     public static void sacar(Cliente cliente, Scanner scanner) {
-        if (cliente != null) {
+        if (verificarCliente(cliente)) {
             System.out.print("Digite o valor do saque: ");
             double valorSaque = scanner.nextDouble();
 
-            if (cliente.getConta().sacar(valorSaque)) {
-                System.out.println("Saque realizado com sucesso.");
-            } else {
+            scanner.nextLine();
+
+            if (!verificarSaque(valorSaque)) {
+                System.out.println("Valor inválido.");
+            } else if (!verificarSaldo(cliente, valorSaque)) {
                 System.out.println("Saldo insuficiente.");
+            } else {
+                cliente.getConta().sacar(valorSaque);
+
+                System.out.println("Saque realizado com sucesso.");
             }
         } else {
             System.out.println("Conta não criada.");
@@ -103,7 +113,7 @@ public class Main {
     }
 
     public static void consultarSaldo(Cliente cliente) {
-        if (cliente != null) {
+        if (verificarCliente(cliente)) {
             System.out.printf("Saldo atual: R$ %.2f%n", cliente.getConta().getSaldo());
         } else {
             System.out.println("Conta não criada.");
@@ -116,5 +126,21 @@ public class Main {
 
     public static void opcaoInvalida() {
         System.out.println("Opção inválida.");
+    }
+
+    public static boolean verificarCliente(Cliente cliente) {
+        return cliente != null;
+    }
+
+    public static boolean verificarDeposito(double valor) {
+        return valor > 0;
+    }
+
+    public static boolean verificarSaque(double valor) {
+        return valor > 0;
+    }
+
+    public static boolean verificarSaldo(Cliente cliente, double valor) {
+        return valor <= cliente.getConta().getSaldo();
     }
 }
