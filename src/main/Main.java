@@ -24,28 +24,12 @@ public class Main {
             scanner.nextLine();
 
             switch (numeroDigitado) {
-                case 1:
-                    cliente = criarConta(cliente, scanner);
-
-                    break;
-                case 2:
-                    depositar(cliente, scanner);
-
-                    break;
-                case 3:
-                    sacar(cliente, scanner);
-
-                    break;
-                case 4:
-                    consultarSaldo(cliente);
-
-                    break;
-                case 5:
-                    sair();
-
-                    break;
-                default:
-                    opcaoInvalida();
+                case 1 -> cliente = criarConta(cliente, scanner);
+                case 2 -> depositar(cliente, scanner);
+                case 3 -> sacar(cliente, scanner);
+                case 4 -> consultarSaldo(cliente);
+                case 5 -> sair();
+                default -> opcaoInvalida();
             }
         } while (numeroDigitado != 5);
     }
