@@ -53,10 +53,22 @@ public class Main {
     public static Cliente criarConta(Cliente cliente, Scanner scanner) {
         if (cliente == null) {
             System.out.print("Digite o seu nome: ");
-            String nomeCliente = scanner.nextLine();
+            String nomeCliente = scanner.nextLine().trim();
+
+            if (nomeCliente.isEmpty()) {
+                System.out.println("Nome não informado.");
+
+                return cliente;
+            }
 
             System.out.print("Digite o seu cpf: ");
-            String cpfCliente = scanner.nextLine();
+            String cpfCliente = scanner.nextLine().trim();
+
+            if (cpfCliente.isEmpty()) {
+                System.out.println("Cpf não informado.");
+
+                return cliente;
+            }
 
             cliente = new Cliente(nomeCliente, cpfCliente);
 
