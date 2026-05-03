@@ -25,17 +25,23 @@ public class Main {
 
             switch (numeroDigitado) {
                 case 1:
-                    System.out.print("Digite o seu nome: ");
-                    String nomeCliente = scanner.nextLine();
+                    if (cliente == null) {
+                        System.out.print("Digite o seu nome: ");
+                        String nomeCliente = scanner.nextLine();
 
-                    System.out.print("Digite o seu cpf: ");
-                    String cpfCliente = scanner.nextLine();
+                        System.out.print("Digite o seu cpf: ");
+                        String cpfCliente = scanner.nextLine();
 
-                    cliente = new Cliente(nomeCliente, cpfCliente);
+                        cliente = new Cliente(nomeCliente, cpfCliente);
 
-                    System.out.println("Conta criada com sucesso.");
+                        System.out.println("Conta criada com sucesso.");
 
-                    break;
+                        break;
+                    } else {
+                        System.out.println("A conta já foi criada.");
+
+                        break;
+                    }
                 case 2:
                     if (cliente != null) {
                         System.out.print("Digite o valor do depósito: ");
