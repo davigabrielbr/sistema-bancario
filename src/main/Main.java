@@ -12,16 +12,7 @@ public class Main {
         Cliente cliente = null;
 
         do {
-            System.out.println("=== Sistema Bancário ===");
-            System.out.println("1 - Cria conta");
-            System.out.println("2 - Depositar");
-            System.out.println("3 - Sacar");
-            System.out.println("4 - Consultar saldo");
-            System.out.println("5 - Sair");
-            System.out.print("Escolha uma opção: ");
-            numeroDigitado = scanner.nextInt();
-
-            scanner.nextLine();
+            numeroDigitado = menu(scanner);
 
             switch (numeroDigitado) {
                 case 1 -> cliente = criarConta(cliente, scanner);
@@ -32,6 +23,21 @@ public class Main {
                 default -> opcaoInvalida();
             }
         } while (numeroDigitado != 5);
+    }
+
+    public static int menu(Scanner scanner) {
+        System.out.println("=== Sistema Bancário ===");
+        System.out.println("1 - Cria conta");
+        System.out.println("2 - Depositar");
+        System.out.println("3 - Sacar");
+        System.out.println("4 - Consultar saldo");
+        System.out.println("5 - Sair");
+        System.out.print("Escolha uma opção: ");
+        int numeroDigitado = scanner.nextInt();
+
+        scanner.nextLine();
+
+        return numeroDigitado;
     }
 
     public static Cliente criarConta(Cliente cliente, Scanner scanner) {
