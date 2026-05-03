@@ -26,8 +26,10 @@ public class Main {
     }
 
     public static int menu(Scanner scanner) {
-        System.out.println("=== Sistema Bancário ===");
-        System.out.println("1 - Cria conta");
+        System.out.println();
+
+        System.out.println("=== SISTEMA BANCÁRIO ===");
+        System.out.println("1 - Criar conta");
         System.out.println("2 - Depositar");
         System.out.println("3 - Sacar");
         System.out.println("4 - Consultar saldo");
@@ -41,7 +43,7 @@ public class Main {
     }
 
     public static Cliente criarConta(Cliente cliente, Scanner scanner) {
-        if (verificarCliente(cliente)) {
+        if (!verificarCliente(cliente)) {
             System.out.print("Digite o seu nome: ");
             String nomeCliente = scanner.nextLine().trim();
 
