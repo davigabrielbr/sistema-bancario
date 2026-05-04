@@ -23,6 +23,8 @@ public class Main {
                 default -> opcaoInvalida();
             }
         } while (numeroDigitado != 5);
+
+        scanner.close();
     }
 
     public static int menu(Scanner scanner) {
@@ -43,7 +45,11 @@ public class Main {
     }
 
     public static Cliente criarConta(Cliente cliente, Scanner scanner) {
-        if (!verificarCliente(cliente)) {
+        if (verificarCliente(cliente)) {
+            System.out.println("A conta já foi criada.");
+
+            return cliente;
+        } else {
             System.out.print("Digite o seu nome: ");
             String nomeCliente = scanner.nextLine().trim();
 
@@ -57,7 +63,7 @@ public class Main {
             String cpfCliente = scanner.nextLine().trim();
 
             if (cpfCliente.isEmpty()) {
-                System.out.println("Cpf não informado.");
+                System.out.println("CPF não informado.");
 
                 return cliente;
             }
@@ -65,10 +71,6 @@ public class Main {
             cliente = new Cliente(nomeCliente, cpfCliente);
 
             System.out.println("Conta criada com sucesso.");
-
-            return cliente;
-        } else {
-            System.out.println("A conta já foi criada.");
 
             return cliente;
         }
@@ -81,15 +83,15 @@ public class Main {
 
             scanner.nextLine();
 
-            if (verificarDeposito(valorDeposito)) {
+            if (verificarValor(valorDeposito)) {
                 cliente.getConta().depositar(valorDeposito);
 
                 System.out.println("Depósito realizado com sucesso.");
             } else {
-                System.out.println("Valor inválido para depósito.");
+                System.out.println("Digite um valor maior que zero.");
             }
         } else {
-            System.out.println("Conta não criada.");
+            contaNaoCriada();
         }
     }
 
@@ -100,8 +102,8 @@ public class Main {
 
             scanner.nextLine();
 
-            if (!verificarSaque(valorSaque)) {
-                System.out.println("Valor inválido.");
+            if (!verificarValor(valorSaque)) {
+                System.out.println("Digite um valor maior que zero.");
             } else if (!verificarSaldo(cliente, valorSaque)) {
                 System.out.println("Saldo insuficiente.");
             } else {
@@ -110,7 +112,7 @@ public class Main {
                 System.out.println("Saque realizado com sucesso.");
             }
         } else {
-            System.out.println("Conta não criada.");
+            contaNaoCriada();
         }
     }
 
@@ -118,7 +120,7 @@ public class Main {
         if (verificarCliente(cliente)) {
             System.out.printf("Saldo atual: R$ %.2f%n", cliente.getConta().getSaldo());
         } else {
-            System.out.println("Conta não criada.");
+            contaNaoCriada();
         }
     }
 
@@ -130,15 +132,15 @@ public class Main {
         System.out.println("Opção inválida.");
     }
 
+    public static void contaNaoCriada() {
+        System.out.println("Conta não criada.");
+    }
+
     public static boolean verificarCliente(Cliente cliente) {
         return cliente != null;
     }
 
-    public static boolean verificarDeposito(double valor) {
-        return valor > 0;
-    }
-
-    public static boolean verificarSaque(double valor) {
+    public static boolean verificarValor(double valor) {
         return valor > 0;
     }
 
