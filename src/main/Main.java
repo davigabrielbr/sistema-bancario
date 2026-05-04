@@ -30,7 +30,9 @@ public class Main {
     public static int menu(Scanner scanner) {
         System.out.println();
 
-        System.out.println("=== SISTEMA BANCÁRIO ===");
+        System.out.println("============================\n" +
+                            "      SISTEMA BANCÁRIO\n" +
+                            "============================");
         System.out.println("1 - Criar conta");
         System.out.println("2 - Depositar");
         System.out.println("3 - Sacar");
@@ -118,6 +120,7 @@ public class Main {
 
     public static void consultarSaldo(Cliente cliente) {
         if (verificarCliente(cliente)) {
+            System.out.println("Cliente: " + cliente.getNome());
             System.out.printf("Saldo atual: R$ %.2f%n", cliente.getConta().getSaldo());
         } else {
             contaNaoCriada();
