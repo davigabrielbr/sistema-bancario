@@ -31,8 +31,8 @@ public class Main {
         System.out.println();
 
         System.out.println("============================\n" +
-                            "      SISTEMA BANCÁRIO\n" +
-                            "============================");
+                "      SISTEMA BANCÁRIO\n" +
+                "============================");
         System.out.println("1 - Criar conta");
         System.out.println("2 - Depositar");
         System.out.println("3 - Sacar");
