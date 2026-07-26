@@ -23,13 +23,11 @@ public class Main {
                 default -> opcaoInvalida();
             }
         } while (numeroDigitado != 5);
-
         scanner.close();
     }
 
     public static int menu(Scanner scanner) {
         System.out.println();
-
         System.out.println("============================\n" +
                 "      SISTEMA BANCÁRIO\n" +
                 "============================");
@@ -40,7 +38,6 @@ public class Main {
         System.out.println("5 - Sair");
         System.out.print("Escolha uma opção: ");
         int numeroDigitado = scanner.nextInt();
-
         scanner.nextLine();
 
         return numeroDigitado;
@@ -49,7 +46,6 @@ public class Main {
     public static Cliente criarConta(Cliente cliente, Scanner scanner) {
         if (verificarCliente(cliente)) {
             System.out.println("A conta já foi criada.");
-
             return cliente;
         } else {
             System.out.print("Digite o seu nome: ");
@@ -57,7 +53,6 @@ public class Main {
 
             if (nomeCliente.isEmpty()) {
                 System.out.println("Nome não informado.");
-
                 return cliente;
             }
 
@@ -66,7 +61,6 @@ public class Main {
 
             if (cpfCliente.isEmpty()) {
                 System.out.println("CPF não informado.");
-
                 return cliente;
             }
 
@@ -82,13 +76,13 @@ public class Main {
         if (verificarCliente(cliente)) {
             System.out.print("Digite o valor do depósito: ");
             double valorDeposito = scanner.nextDouble();
-
             scanner.nextLine();
 
-            if (cliente.getConta().depositar(valorDeposito)) {
-                System.out.println("Deposito realizado com sucesso.");
+            if (verificarValor(valorDeposito)) {
+                cliente.getConta().depositar(valorDeposito);
+                System.out.println("Depósito realizado com sucesso.");
             } else {
-                System.out.println("Valor inválido.");
+                System.out.println("Digite um valor maior que zero.");
             }
         } else {
             contaNaoCriada();
@@ -102,10 +96,13 @@ public class Main {
 
             scanner.nextLine();
 
-            if (cliente.getConta().sacar(valorSaque)) {
-                System.out.println("Saque realizado com sucesso.");
+            if (!verificarValor(valorSaque)) {
+                System.out.println("Digite um valor maior que zero.");
+            } else if (!verificarSaldo(cliente, valorSaque)) {
+                System.out.println("Saldo insuficiente.");
             } else {
-                System.out.println("Não foi possível realizar o saque.");
+                cliente.getConta().sacar(valorSaque);
+                System.out.println("Saque realizado com sucesso.");
             }
         } else {
             contaNaoCriada();
