@@ -85,12 +85,10 @@ public class Main {
 
             scanner.nextLine();
 
-            if (verificarValor(valorDeposito)) {
-                cliente.getConta().depositar(valorDeposito);
-
-                System.out.println("Depósito realizado com sucesso.");
+            if (cliente.getConta().depositar(valorDeposito)) {
+                System.out.println("Deposito realizado com sucesso.");
             } else {
-                System.out.println("Digite um valor maior que zero.");
+                System.out.println("Valor inválido.");
             }
         } else {
             contaNaoCriada();
@@ -104,14 +102,10 @@ public class Main {
 
             scanner.nextLine();
 
-            if (!verificarValor(valorSaque)) {
-                System.out.println("Digite um valor maior que zero.");
-            } else if (!verificarSaldo(cliente, valorSaque)) {
-                System.out.println("Saldo insuficiente.");
-            } else {
-                cliente.getConta().sacar(valorSaque);
-
+            if (cliente.getConta().sacar(valorSaque)) {
                 System.out.println("Saque realizado com sucesso.");
+            } else {
+                System.out.println("Não foi possível realizar o saque.");
             }
         } else {
             contaNaoCriada();
