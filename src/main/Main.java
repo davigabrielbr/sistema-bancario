@@ -93,7 +93,6 @@ public class Main {
         if (verificarCliente(cliente)) {
             System.out.print("Digite o valor do saque: ");
             double valorSaque = scanner.nextDouble();
-
             scanner.nextLine();
 
             if (!verificarValor(valorSaque)) {
