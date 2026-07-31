@@ -26,4 +26,8 @@ public class Conta {
     public double getSaldo() {
         return saldo;
     }
+
+    public TipoConta getTipoConta() {
+        return tipoConta;
+    }
 }

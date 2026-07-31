@@ -31,6 +31,7 @@ public class Cliente {
                 "Nome: " + nome + "\n" +
                 "CPF: " + cpf + "\n" +
                 String.format("Saldo: R$ %.2f", conta.getSaldo()) + "\n" +
-                "==========================";
+                "Tipo da conta: " + conta.getTipoConta() +
+                "\n==========================";
     }
 }
