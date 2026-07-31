@@ -18,7 +18,7 @@ public class Main {
                 case 1 -> cliente = criarConta(cliente, scanner);
                 case 2 -> depositar(cliente, scanner);
                 case 3 -> sacar(cliente, scanner);
-                case 4 -> consultarSaldo(cliente);
+                case 4 -> consultarCliente(cliente);
                 case 5 -> sair();
                 default -> opcaoInvalida();
             }
@@ -34,7 +34,7 @@ public class Main {
         System.out.println("1 - Criar conta");
         System.out.println("2 - Depositar");
         System.out.println("3 - Sacar");
-        System.out.println("4 - Consultar saldo");
+        System.out.println("4 - Consultar cliente");
         System.out.println("5 - Sair");
         System.out.print("Escolha uma opção: ");
         int numeroDigitado = scanner.nextInt();
@@ -107,16 +107,6 @@ public class Main {
         System.out.println("Saque realizado com sucesso.");
     }
 
-    public static void consultarSaldo(Cliente cliente) {
-        if (!verificarCliente(cliente)) {
-            contaNaoCriada();
-            return;
-        }
-
-        System.out.println("Cliente: " + cliente.getNome());
-        System.out.printf("Saldo atual: R$ %.2f%n", cliente.getConta().getSaldo());
-    }
-
     public static void sair() {
         System.out.println("Saindo...");
     }
@@ -131,5 +121,14 @@ public class Main {
 
     public static boolean verificarCliente(Cliente cliente) {
         return cliente != null;
+    }
+
+    public static void consultarCliente(Cliente cliente) {
+        if (!verificarCliente(cliente)) {
+            contaNaoCriada();
+            return;
+        }
+
+        System.out.println(cliente);
     }
 }

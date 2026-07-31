@@ -22,4 +22,15 @@ public class Cliente {
     public Conta getConta() {
         return conta;
     }
+
+    @Override
+    public String toString() {
+        return "==========================\n" +
+                "Cliente\n" +
+                "==========================\n" +
+                "Nome: " + nome + "\n" +
+                "CPF: " + cpf + "\n" +
+                String.format("Saldo: R$ %.2f", conta.getSaldo()) + "\n" +
+                "==========================";
+    }
 }
