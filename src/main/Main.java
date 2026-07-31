@@ -1,6 +1,7 @@
 package main;
 
 import model.Cliente;
+import model.TipoConta;
 
 import java.util.Scanner;
 
@@ -65,7 +66,26 @@ public class Main {
             return cliente;
         }
 
-        cliente = new Cliente(nomeCliente, cpfCliente);
+        System.out.println("Digite o tipo da conta:");
+        System.out.println("1 - Corrente");
+        System.out.println("2 - Poupança");
+        System.out.print("Opção: ");
+
+        int opcao = scanner.nextInt();
+        scanner.nextLine();
+
+        TipoConta tipoConta;
+
+        switch (opcao) {
+            case 1 -> tipoConta = TipoConta.CORRENTE;
+            case 2 -> tipoConta = TipoConta.POUPANCA;
+            default -> {
+                System.out.println("Tipo de conta inválido.");
+                return cliente;
+            }
+        }
+
+        cliente = new Cliente(nomeCliente, cpfCliente, tipoConta);
 
         System.out.println("Conta criada com sucesso.");
         return cliente;

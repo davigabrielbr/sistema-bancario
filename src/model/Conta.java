@@ -2,6 +2,11 @@ package model;
 
 public class Conta {
     private double saldo;
+    private final TipoConta tipoConta;
+
+    public Conta(TipoConta tipoConta) {
+        this.tipoConta = tipoConta;
+    }
 
     public boolean depositar(double valor) {
         if (valor <= 0) return false;
