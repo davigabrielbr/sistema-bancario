@@ -1,9 +1,9 @@
 package model;
 
 public class Cliente {
-    private String nome;
-    private String cpf;
-    private Conta conta;
+    private final String nome;
+    private final String cpf;
+    private final Conta conta;
 
     public Cliente(String nome, String cpf, TipoConta tipoConta) {
         this.nome = nome;
@@ -25,13 +25,19 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "==========================\n" +
-                "Cliente\n" +
-                "==========================\n" +
-                "Nome: " + nome + "\n" +
-                "CPF: " + cpf + "\n" +
-                String.format("Saldo: R$ %.2f", conta.getSaldo()) + "\n" +
-                "Tipo da conta: " + conta.getTipoConta() +
-                "\n==========================";
+        return String.format("""
+            ==========================
+                 DADOS DO CLIENTE
+            ==========================
+            Nome          : %s
+            CPF           : %s
+            Tipo da conta : %s
+            Saldo         : R$ %.2f
+            ==========================
+            """,
+                nome,
+                cpf,
+                conta.getTipoConta(),
+                conta.getSaldo());
     }
 }

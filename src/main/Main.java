@@ -50,22 +50,8 @@ public class Main {
             return cliente;
         }
 
-        System.out.print("Digite o seu nome: ");
-        String nomeCliente = scanner.nextLine().trim();
-
-        if (nomeCliente.isEmpty()) {
-            System.out.println("Nome não informado.");
-            return cliente;
-        }
-
-        System.out.print("Digite o seu cpf: ");
-        String cpfCliente = scanner.nextLine().trim();
-
-        if (cpfCliente.isEmpty()) {
-            System.out.println("CPF não informado.");
-            return cliente;
-        }
-
+        String nomeCliente = lerNome(scanner);
+        String cpfCliente = lerCpf(scanner);
         TipoConta tipoConta = escolherTipoConta(scanner);
 
         cliente = new Cliente(nomeCliente, cpfCliente, tipoConta);
@@ -80,9 +66,7 @@ public class Main {
             return;
         }
 
-        System.out.print("Digite o valor do depósito: ");
-        double valorDeposito = scanner.nextDouble();
-        scanner.nextLine();
+        double valorDeposito = lerValor(scanner, "Digite o valor do depósito: ");
 
         if (!cliente.getConta().depositar(valorDeposito)) {
             System.out.println("Digite um valor maior que zero.");
@@ -98,9 +82,7 @@ public class Main {
             return;
         }
 
-        System.out.print("Digite o valor do saque: ");
-        double valorSaque = scanner.nextDouble();
-        scanner.nextLine();
+        double valorSaque = lerValor(scanner, "Digite o valor do saque: ");
 
         if (!cliente.getConta().sacar(valorSaque)) {
             System.out.println("Não foi possível realizar o saque.");
@@ -156,5 +138,42 @@ public class Main {
                     System.out.println("Tipo de conta inválido.\n");
             }
         } while (true);
+    }
+
+    public static String lerNome(Scanner scanner) {
+        String nomeCliente;
+
+        do {
+            System.out.print("Digite o seu nome: ");
+            nomeCliente = scanner.nextLine().trim();
+
+            if (nomeCliente.isEmpty()) {
+                System.out.println("Nome não informado.");
+            }
+        } while (nomeCliente.isEmpty());
+
+        return nomeCliente;
+    }
+
+    public static String lerCpf(Scanner scanner) {
+        String cpfCliente;
+
+        do {
+            System.out.print("Digite o seu cpf: ");
+            cpfCliente = scanner.nextLine().trim();
+
+            if (cpfCliente.isEmpty()) {
+                System.out.println("CPF não informado.");
+            }
+        } while (cpfCliente.isEmpty());
+
+        return cpfCliente;
+    }
+
+    public static double lerValor(Scanner scanner, String mensagem) {
+        System.out.print(mensagem);
+        double valor = scanner.nextDouble();
+        scanner.nextLine();
+        return valor;
     }
 }
