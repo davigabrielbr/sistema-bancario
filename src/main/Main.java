@@ -66,24 +66,7 @@ public class Main {
             return cliente;
         }
 
-        System.out.println("Digite o tipo da conta:");
-        System.out.println("1 - Corrente");
-        System.out.println("2 - Poupança");
-        System.out.print("Opção: ");
-
-        int opcao = scanner.nextInt();
-        scanner.nextLine();
-
-        TipoConta tipoConta;
-
-        switch (opcao) {
-            case 1 -> tipoConta = TipoConta.CORRENTE;
-            case 2 -> tipoConta = TipoConta.POUPANCA;
-            default -> {
-                System.out.println("Tipo de conta inválido.");
-                return cliente;
-            }
-        }
+        TipoConta tipoConta = escolherTipoConta(scanner);
 
         cliente = new Cliente(nomeCliente, cpfCliente, tipoConta);
 
@@ -150,5 +133,28 @@ public class Main {
         }
 
         System.out.println(cliente);
+    }
+
+    public static TipoConta escolherTipoConta(Scanner scanner) {
+        int opcao;
+
+        do {
+            System.out.println("Digite o tipo da conta:");
+            System.out.println("1 - Corrente");
+            System.out.println("2 - Poupança");
+            System.out.print("Opção: ");
+
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    return TipoConta.CORRENTE;
+                case 2:
+                    return TipoConta.POUPANCA;
+                default:
+                    System.out.println("Tipo de conta inválido.\n");
+            }
+        } while (true);
     }
 }
