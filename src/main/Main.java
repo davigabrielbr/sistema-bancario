@@ -22,10 +22,11 @@ public class Main {
                 case 3 -> sacar(clientes, scanner);
                 case 4 -> consultarCliente(clientes, scanner);
                 case 5 -> listarClientes(clientes);
-                case 6 -> sair();
+                case 6 -> transferir(clientes, scanner);
+                case 7 -> sair();
                 default -> opcaoInvalida();
             }
-        } while (numeroDigitado != 5);
+        } while (numeroDigitado != 7);
         scanner.close();
     }
 
@@ -39,7 +40,8 @@ public class Main {
         System.out.println("3 - Sacar");
         System.out.println("4 - Consultar cliente");
         System.out.println("5 - Listar clientes");
-        System.out.println("6 - Sair");
+        System.out.println("6 - Transferir");
+        System.out.println("7 - Sair");
         System.out.print("Escolha uma opção: ");
         int numeroDigitado = scanner.nextInt();
 
@@ -116,7 +118,7 @@ public class Main {
             return;
         }
 
-        System.out.println(clientes);
+        System.out.println(cliente);
     }
 
     public static TipoConta escolherTipoConta(Scanner scanner) {
@@ -192,6 +194,19 @@ public class Main {
         return null;
     }
 
+    public static Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner scanner, String mensagem) {
+        System.out.print("Digite o CPF da " + mensagem + ": ");
+        String cpf = scanner.nextLine().trim();
+
+        for (Cliente cliente : clientes) {
+            if (cliente.getCpf().equals(cpf)) {
+                return cliente;
+            }
+        }
+
+        return null;
+    }
+
     public static boolean cpfJaExiste(ArrayList<Cliente> clientes, String cpf) {
         for (Cliente cliente : clientes) {
             if (cliente.getCpf().equals(cpf)) {
@@ -211,5 +226,37 @@ public class Main {
         for (Cliente cliente : clientes) {
             System.out.println(cliente);
         }
+    }
+
+    public static void transferir(ArrayList<Cliente> clientes, Scanner scanner) {
+        Cliente origem = buscarCliente(clientes, scanner, "origem");
+
+        if (origem == null) {
+            System.out.println("Cliente não encontrado.");
+            return;
+        }
+
+        Cliente destino = buscarCliente(clientes, scanner, "destino");
+
+        if (destino == null) {
+            System.out.println("Cliente não encontrado");
+            return;
+        }
+
+
+        if (origem == destino) {
+            System.out.println("Não é possível transferir para a mesma conta.");
+            return;
+        }
+
+        double valor = lerValor(scanner, "Digite o valor: ");
+
+        if (!origem.getConta().sacar(valor)) {
+            System.out.println("Não foi possível realizar a transferência");
+            return;
+        }
+
+        destino.getConta().depositar(valor);
+        System.out.println("Transferência realizada com sucesso.");
     }
 }
