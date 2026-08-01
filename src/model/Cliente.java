@@ -29,14 +29,16 @@ public class Cliente {
             ==========================
                  DADOS DO CLIENTE
             ==========================
-            Nome          : %s
-            CPF           : %s
-            Tipo da conta : %s
-            Saldo         : R$ %.2f
+            Nome            : %s
+            CPF             : %s
+            Número da conta : %d
+            Tipo da conta   : %s
+            Saldo           : R$ %.2f
             ==========================
             """,
                 nome,
                 cpf,
+                conta.getNumeroConta(),
                 conta.getTipoConta(),
                 conta.getSaldo());
     }

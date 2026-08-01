@@ -2,9 +2,12 @@ package model;
 
 public class Conta {
     private double saldo;
+    private static int proximoNumero = 1000;
+    private final int numeroConta;
     private final TipoConta tipoConta;
 
     public Conta(TipoConta tipoConta) {
+        this.numeroConta = proximoNumero++;
         this.tipoConta = tipoConta;
     }
 
@@ -29,5 +32,9 @@ public class Conta {
 
     public TipoConta getTipoConta() {
         return tipoConta;
+    }
+
+    public int getNumeroConta() {
+        return numeroConta;
     }
 }

@@ -3,24 +3,26 @@ package main;
 import model.Cliente;
 import model.TipoConta;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ArrayList<Cliente> clientes = new ArrayList<>();
 
         int numeroDigitado;
-        Cliente cliente = null;
 
         do {
             numeroDigitado = menu(scanner);
 
             switch (numeroDigitado) {
-                case 1 -> cliente = criarConta(cliente, scanner);
-                case 2 -> depositar(cliente, scanner);
-                case 3 -> sacar(cliente, scanner);
-                case 4 -> consultarCliente(cliente);
-                case 5 -> sair();
+                case 1 -> criarConta(clientes, scanner);
+                case 2 -> depositar(clientes, scanner);
+                case 3 -> sacar(clientes, scanner);
+                case 4 -> consultarCliente(clientes, scanner);
+                case 5 -> listarClientes(clientes);
+                case 6 -> sair();
                 default -> opcaoInvalida();
             }
         } while (numeroDigitado != 5);
@@ -36,7 +38,8 @@ public class Main {
         System.out.println("2 - Depositar");
         System.out.println("3 - Sacar");
         System.out.println("4 - Consultar cliente");
-        System.out.println("5 - Sair");
+        System.out.println("5 - Listar clientes");
+        System.out.println("6 - Sair");
         System.out.print("Escolha uma opção: ");
         int numeroDigitado = scanner.nextInt();
 
@@ -44,25 +47,28 @@ public class Main {
         return numeroDigitado;
     }
 
-    public static Cliente criarConta(Cliente cliente, Scanner scanner) {
-        if (verificarCliente(cliente)) {
-            System.out.println("A conta já foi criada.");
-            return cliente;
-        }
-
+    public static void criarConta(ArrayList<Cliente> clientes, Scanner scanner) {
         String nomeCliente = lerNome(scanner);
         String cpfCliente = lerCpf(scanner);
+
+        if (cpfJaExiste(clientes, cpfCliente)) {
+            System.out.println("Já existe um cliente com esse CPF.");
+            return;
+        }
+
         TipoConta tipoConta = escolherTipoConta(scanner);
 
-        cliente = new Cliente(nomeCliente, cpfCliente, tipoConta);
+        Cliente cliente = new Cliente(nomeCliente, cpfCliente, tipoConta);
+        clientes.add(cliente);
 
         System.out.println("Conta criada com sucesso.");
-        return cliente;
     }
 
-    public static void depositar(Cliente cliente, Scanner scanner) {
-        if (!verificarCliente(cliente)) {
-            contaNaoCriada();
+    public static void depositar(ArrayList<Cliente> clientes, Scanner scanner) {
+        Cliente cliente = buscarCliente(clientes, scanner);
+
+        if (cliente == null) {
+            System.out.println("Cliente não encontrado.");
             return;
         }
 
@@ -76,9 +82,11 @@ public class Main {
         System.out.println("Depósito realizado com sucesso.");
     }
 
-    public static void sacar(Cliente cliente, Scanner scanner) {
-        if (!verificarCliente(cliente)) {
-            contaNaoCriada();
+    public static void sacar(ArrayList<Cliente> clientes, Scanner scanner) {
+        Cliente cliente = buscarCliente(clientes, scanner);
+
+        if (cliente == null) {
+            System.out.println("Cliente não encontrado.");
             return;
         }
 
@@ -100,21 +108,15 @@ public class Main {
         System.out.println("Opção inválida.");
     }
 
-    public static void contaNaoCriada() {
-        System.out.println("Conta não criada.");
-    }
+    public static void consultarCliente(ArrayList<Cliente> clientes, Scanner scanner) {
+        Cliente cliente = buscarCliente(clientes, scanner);
 
-    public static boolean verificarCliente(Cliente cliente) {
-        return cliente != null;
-    }
-
-    public static void consultarCliente(Cliente cliente) {
-        if (!verificarCliente(cliente)) {
-            contaNaoCriada();
+        if (cliente == null) {
+            System.out.println("Cliente não encontrado.");
             return;
         }
 
-        System.out.println(cliente);
+        System.out.println(clientes);
     }
 
     public static TipoConta escolherTipoConta(Scanner scanner) {
@@ -175,5 +177,39 @@ public class Main {
         double valor = scanner.nextDouble();
         scanner.nextLine();
         return valor;
+    }
+
+    public static Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner scanner) {
+        System.out.print("Digite o CPF: ");
+        String cpf = scanner.nextLine().trim();
+
+        for (Cliente cliente : clientes) {
+            if (cliente.getCpf().equals(cpf)) {
+                return cliente;
+            }
+        }
+
+        return null;
+    }
+
+    public static boolean cpfJaExiste(ArrayList<Cliente> clientes, String cpf) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getCpf().equals(cpf)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void listarClientes(ArrayList<Cliente> clientes) {
+        if (clientes.isEmpty()) {
+            System.out.println("Nenhum cliente cadastrado");
+            return;
+        }
+
+        for (Cliente cliente : clientes) {
+            System.out.println(cliente);
+        }
     }
 }
