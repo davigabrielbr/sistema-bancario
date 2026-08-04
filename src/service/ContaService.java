@@ -77,6 +77,4 @@ public class ContaService {
         destino.getConta().depositar(valor);
         System.out.println("Transferência realizada com sucesso.");
     }
-
-
 }

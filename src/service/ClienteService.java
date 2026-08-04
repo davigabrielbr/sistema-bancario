@@ -13,7 +13,7 @@ public class ClienteService {
         String nomeCliente = lerNome(scanner);
         String cpfCliente = lerCpf(scanner);
 
-        if (cpfJaExiste(clientes, cpfCliente)) {
+        if (existeCpf(clientes, cpfCliente)) {
             System.out.println("Já existe um cliente com esse CPF.");
             return;
         }
@@ -26,7 +26,7 @@ public class ClienteService {
         System.out.println("Conta criada com sucesso.");
     }
 
-    public static boolean cpfJaExiste(ArrayList<Cliente> clientes, String cpf) {
+    public static boolean existeCpf(ArrayList<Cliente> clientes, String cpf) {
         for (Cliente cliente : clientes) {
             if (cliente.getCpf().equals(cpf)) {
                 return true;
