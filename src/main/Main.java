@@ -2,6 +2,8 @@ package main;
 
 import model.Cliente;
 import model.TipoConta;
+import service.ClienteService;
+import service.ContaService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,6 +12,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Cliente> clientes = new ArrayList<>();
+        ClienteService clienteService = new ClienteService();
+        ContaService contaService = new ContaService();
 
         int numeroDigitado;
 
@@ -17,12 +21,12 @@ public class Main {
             numeroDigitado = menu(scanner);
 
             switch (numeroDigitado) {
-                case 1 -> criarConta(clientes, scanner);
-                case 2 -> depositar(clientes, scanner);
-                case 3 -> sacar(clientes, scanner);
-                case 4 -> consultarCliente(clientes, scanner);
-                case 5 -> listarClientes(clientes);
-                case 6 -> transferir(clientes, scanner);
+                case 1 -> clienteService.criarConta(clientes, scanner);
+                case 2 -> contaService.depositar(clientes, scanner);
+                case 3 -> contaService.sacar(clientes, scanner);
+                case 4 -> clienteService.consultarCliente(clientes, scanner);
+                case 5 -> clienteService.listarClientes(clientes);
+                case 6 -> contaService.transferir(clientes, scanner);
                 case 7 -> sair();
                 default -> opcaoInvalida();
             }
@@ -49,76 +53,12 @@ public class Main {
         return numeroDigitado;
     }
 
-    public static void criarConta(ArrayList<Cliente> clientes, Scanner scanner) {
-        String nomeCliente = lerNome(scanner);
-        String cpfCliente = lerCpf(scanner);
-
-        if (cpfJaExiste(clientes, cpfCliente)) {
-            System.out.println("Já existe um cliente com esse CPF.");
-            return;
-        }
-
-        TipoConta tipoConta = escolherTipoConta(scanner);
-
-        Cliente cliente = new Cliente(nomeCliente, cpfCliente, tipoConta);
-        clientes.add(cliente);
-
-        System.out.println("Conta criada com sucesso.");
-    }
-
-    public static void depositar(ArrayList<Cliente> clientes, Scanner scanner) {
-        Cliente cliente = buscarCliente(clientes, scanner);
-
-        if (cliente == null) {
-            System.out.println("Cliente não encontrado.");
-            return;
-        }
-
-        double valorDeposito = lerValor(scanner, "Digite o valor do depósito: ");
-
-        if (!cliente.getConta().depositar(valorDeposito)) {
-            System.out.println("Digite um valor maior que zero.");
-            return;
-        }
-
-        System.out.println("Depósito realizado com sucesso.");
-    }
-
-    public static void sacar(ArrayList<Cliente> clientes, Scanner scanner) {
-        Cliente cliente = buscarCliente(clientes, scanner);
-
-        if (cliente == null) {
-            System.out.println("Cliente não encontrado.");
-            return;
-        }
-
-        double valorSaque = lerValor(scanner, "Digite o valor do saque: ");
-
-        if (!cliente.getConta().sacar(valorSaque)) {
-            System.out.println("Não foi possível realizar o saque.");
-            return;
-        }
-
-        System.out.println("Saque realizado com sucesso.");
-    }
-
     public static void sair() {
         System.out.println("Saindo...");
     }
 
     public static void opcaoInvalida() {
         System.out.println("Opção inválida.");
-    }
-
-    public static void consultarCliente(ArrayList<Cliente> clientes, Scanner scanner) {
-        Cliente cliente = buscarCliente(clientes, scanner);
-
-        if (cliente == null) {
-            System.out.println("Cliente não encontrado.");
-            return;
-        }
-
-        System.out.println(cliente);
     }
 
     public static TipoConta escolherTipoConta(Scanner scanner) {
@@ -179,84 +119,5 @@ public class Main {
         double valor = scanner.nextDouble();
         scanner.nextLine();
         return valor;
-    }
-
-    public static Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner scanner) {
-        System.out.print("Digite o CPF: ");
-        String cpf = scanner.nextLine().trim();
-
-        for (Cliente cliente : clientes) {
-            if (cliente.getCpf().equals(cpf)) {
-                return cliente;
-            }
-        }
-
-        return null;
-    }
-
-    public static Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner scanner, String mensagem) {
-        System.out.print("Digite o CPF da " + mensagem + ": ");
-        String cpf = scanner.nextLine().trim();
-
-        for (Cliente cliente : clientes) {
-            if (cliente.getCpf().equals(cpf)) {
-                return cliente;
-            }
-        }
-
-        return null;
-    }
-
-    public static boolean cpfJaExiste(ArrayList<Cliente> clientes, String cpf) {
-        for (Cliente cliente : clientes) {
-            if (cliente.getCpf().equals(cpf)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public static void listarClientes(ArrayList<Cliente> clientes) {
-        if (clientes.isEmpty()) {
-            System.out.println("Nenhum cliente cadastrado");
-            return;
-        }
-
-        for (Cliente cliente : clientes) {
-            System.out.println(cliente);
-        }
-    }
-
-    public static void transferir(ArrayList<Cliente> clientes, Scanner scanner) {
-        Cliente origem = buscarCliente(clientes, scanner, "origem");
-
-        if (origem == null) {
-            System.out.println("Cliente não encontrado.");
-            return;
-        }
-
-        Cliente destino = buscarCliente(clientes, scanner, "destino");
-
-        if (destino == null) {
-            System.out.println("Cliente não encontrado");
-            return;
-        }
-
-
-        if (origem == destino) {
-            System.out.println("Não é possível transferir para a mesma conta.");
-            return;
-        }
-
-        double valor = lerValor(scanner, "Digite o valor: ");
-
-        if (!origem.getConta().sacar(valor)) {
-            System.out.println("Não foi possível realizar a transferência");
-            return;
-        }
-
-        destino.getConta().depositar(valor);
-        System.out.println("Transferência realizada com sucesso.");
     }
 }
