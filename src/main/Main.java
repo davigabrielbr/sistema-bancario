@@ -59,7 +59,7 @@ public class Main {
             return numeroDigitado;
         } catch (InputMismatchException e) {
             System.out.println("Digite apenas números.");
-            scanner.nextLine(); // limpa "abc"
+            scanner.nextLine();
             return 0;
         }
     }
