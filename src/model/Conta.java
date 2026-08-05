@@ -1,7 +1,7 @@
 package model;
 
-public class Conta {
-    private double saldo;
+public abstract class Conta {
+    protected double saldo;
     private static int proximoNumero = 1000;
     private final int numeroConta;
     private final TipoConta tipoConta;
@@ -19,17 +19,7 @@ public class Conta {
         saldo += valor;
     }
 
-    public void sacar(double valor) {
-        if (valor <= 0) {
-            throw new IllegalArgumentException("Digite um valor maior que zero.");
-        }
-
-        if (valor > saldo) {
-            throw new IllegalArgumentException("Saldo insuficiente.");
-        }
-
-        saldo -= valor;
-    }
+    public abstract void sacar(double valor);
 
     public double getSaldo() {
         return saldo;

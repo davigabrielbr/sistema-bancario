@@ -98,9 +98,13 @@ public class Main {
 
             if (nomeCliente.isEmpty()) {
                 System.out.println("Nome não informado.");
+            } else if (!nomeCliente.matches("[a-zA-ZÀ-ÿ ]+")) {
+                System.out.println("O nome deve conter apenas letras.");
+            } else if (nomeCliente.length() < 3) {
+                System.out.println("O nome deve conter pelo menos 3 letras.");
             }
-        } while (nomeCliente.isEmpty());
-
+        } while (!nomeCliente.matches("[a-zA-ZÀ-ÿ ]+")
+                || nomeCliente.length() < 3);
         return nomeCliente;
     }
 
@@ -114,8 +118,11 @@ public class Main {
             if (cpfCliente.isEmpty()) {
                 System.out.println("CPF não informado.");
             }
-        } while (cpfCliente.isEmpty());
 
+            if (cpfCliente.length() != 11) {
+                System.out.println("CPF deve conter 11 caracteres");
+            }
+        } while (cpfCliente.length() != 11);
         return cpfCliente;
     }
 

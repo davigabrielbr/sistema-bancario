@@ -8,7 +8,12 @@ public class Cliente {
     public Cliente(String nome, String cpf, TipoConta tipoConta) {
         this.nome = nome;
         this.cpf = cpf;
-        this.conta = new Conta(tipoConta);
+
+        if (tipoConta == TipoConta.CORRENTE) {
+            this.conta = new ContaCorrente();
+        } else {
+            this.conta = new ContaPoupanca();
+        }
     }
 
     public String getNome() {
