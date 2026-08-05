@@ -6,6 +6,7 @@ import service.ClienteService;
 import service.ContaService;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -36,14 +37,13 @@ public class Main {
             }
         } while (numeroDigitado != 7);
         scanner.close();
-
     }
 
     public static int menu(Scanner scanner) {
         System.out.println();
-        System.out.println("============================\n" +
-                "      SISTEMA BANCÁRIO\n" +
-                "============================");
+        System.out.println("============================");
+        System.out.println("      SISTEMA BANCÁRIO");
+        System.out.println("============================");
         System.out.println("1 - Criar conta");
         System.out.println("2 - Depositar");
         System.out.println("3 - Sacar");
@@ -52,10 +52,16 @@ public class Main {
         System.out.println("6 - Transferir");
         System.out.println("7 - Sair");
         System.out.print("Escolha uma opção: ");
-        int numeroDigitado = scanner.nextInt();
 
-        scanner.nextLine();
-        return numeroDigitado;
+        try {
+            int numeroDigitado = scanner.nextInt();
+            scanner.nextLine();
+            return numeroDigitado;
+        } catch (InputMismatchException e) {
+            System.out.println("Digite apenas números.");
+            scanner.nextLine(); // limpa "abc"
+            return 0;
+        }
     }
 
     public static void sair() {
@@ -117,12 +123,11 @@ public class Main {
 
             if (cpfCliente.isEmpty()) {
                 System.out.println("CPF não informado.");
+            } else if (!cpfCliente.matches("\\d{11}")) {
+                System.out.println("O CPF deve conter exatamente 11 números.");
             }
-
-            if (cpfCliente.length() != 11) {
-                System.out.println("CPF deve conter 11 caracteres");
-            }
-        } while (cpfCliente.length() != 11);
+        } while (cpfCliente.length() != 11
+                || !cpfCliente.matches("\\d{11}"));
         return cpfCliente;
     }
 
