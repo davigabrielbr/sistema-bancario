@@ -14,8 +14,7 @@ public class ClienteService {
         String cpfCliente = lerCpf(scanner);
 
         if (existeCpf(clientes, cpfCliente)) {
-            System.out.println("Já existe um cliente com esse CPF.");
-            return;
+            throw new IllegalArgumentException("CPF já cadastrado");
         }
 
         TipoConta tipoConta = escolherTipoConta(scanner);
@@ -39,15 +38,10 @@ public class ClienteService {
     public void consultarCliente(ArrayList<Cliente> clientes, Scanner scanner) {
         Cliente cliente = buscarCliente(clientes, scanner);
 
-        if (cliente == null) {
-            System.out.println("Cliente não encontrado.");
-            return;
-        }
-
         System.out.println(cliente);
     }
 
-    public static Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner scanner) {
+    public Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner scanner) {
         System.out.print("Digite o CPF: ");
         String cpf = scanner.nextLine().trim();
 
@@ -57,11 +51,11 @@ public class ClienteService {
             }
         }
 
-        return null;
+        throw new IllegalArgumentException("Cliente não encontrado.");
     }
 
-    public static Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner scanner, String mensagem) {
-        System.out.print("Digite o CPF da " + mensagem + ": ");
+    public Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner scanner, String mensagem) {
+        System.out.print("Digite o CPF da conta de " + mensagem + ": ");
         String cpf = scanner.nextLine().trim();
 
         for (Cliente cliente : clientes) {
@@ -70,7 +64,7 @@ public class ClienteService {
             }
         }
 
-        return null;
+        throw new IllegalArgumentException("Cliente não encontrado.");
     }
 
     public void listarClientes(ArrayList<Cliente> clientes) {

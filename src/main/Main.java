@@ -20,18 +20,23 @@ public class Main {
         do {
             numeroDigitado = menu(scanner);
 
-            switch (numeroDigitado) {
-                case 1 -> clienteService.criarConta(clientes, scanner);
-                case 2 -> contaService.depositar(clientes, scanner);
-                case 3 -> contaService.sacar(clientes, scanner);
-                case 4 -> clienteService.consultarCliente(clientes, scanner);
-                case 5 -> clienteService.listarClientes(clientes);
-                case 6 -> contaService.transferir(clientes, scanner);
-                case 7 -> sair();
-                default -> opcaoInvalida();
+            try {
+                switch (numeroDigitado) {
+                    case 1 -> clienteService.criarConta(clientes, scanner);
+                    case 2 -> contaService.depositar(clientes, scanner);
+                    case 3 -> contaService.sacar(clientes, scanner);
+                    case 4 -> clienteService.consultarCliente(clientes, scanner);
+                    case 5 -> clienteService.listarClientes(clientes);
+                    case 6 -> contaService.transferir(clientes, scanner);
+                    case 7 -> sair();
+                    default -> opcaoInvalida();
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         } while (numeroDigitado != 7);
         scanner.close();
+
     }
 
     public static int menu(Scanner scanner) {

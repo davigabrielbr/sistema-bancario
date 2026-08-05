@@ -11,19 +11,24 @@ public class Conta {
         this.tipoConta = tipoConta;
     }
 
-    public boolean depositar(double valor) {
-        if (valor <= 0) return false;
+    public void depositar(double valor) {
+        if (valor <= 0) {
+            throw new IllegalArgumentException("Digite um valor maior que zero.");
+        }
 
         saldo += valor;
-        return true;
     }
 
-    public boolean sacar(double valor) {
-        if (valor <= 0) return false;
-        if (valor > saldo) return false;
+    public void sacar(double valor) {
+        if (valor <= 0) {
+            throw new IllegalArgumentException("Digite um valor maior que zero.");
+        }
+
+        if (valor > saldo) {
+            throw new IllegalArgumentException("Saldo insuficiente.");
+        }
 
         saldo -= valor;
-        return true;
     }
 
     public double getSaldo() {
