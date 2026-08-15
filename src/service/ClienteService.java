@@ -1,5 +1,7 @@
 package service;
 
+import exception.ClienteNaoEncontradoException;
+import exception.CpfJaCadastradoException;
 import model.Cliente;
 import model.TipoConta;
 
@@ -14,7 +16,7 @@ public class ClienteService {
         String cpfCliente = lerCpf(scanner);
 
         if (existeCpf(clientes, cpfCliente)) {
-            throw new IllegalArgumentException("CPF já cadastrado");
+            throw new CpfJaCadastradoException("CPF já cadastrado.");
         }
 
         TipoConta tipoConta = escolherTipoConta(scanner);
@@ -51,7 +53,7 @@ public class ClienteService {
             }
         }
 
-        throw new IllegalArgumentException("Cliente não encontrado.");
+        throw new ClienteNaoEncontradoException("Cliente não encontrado.");
     }
 
     public Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner scanner, String mensagem) {
@@ -64,7 +66,7 @@ public class ClienteService {
             }
         }
 
-        throw new IllegalArgumentException("Cliente não encontrado.");
+        throw new ClienteNaoEncontradoException("Cliente não encontrado.");
     }
 
     public void listarClientes(ArrayList<Cliente> clientes) {

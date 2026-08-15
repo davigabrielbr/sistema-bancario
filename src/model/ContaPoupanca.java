@@ -1,5 +1,8 @@
 package model;
 
+import exception.SaldoInsuficienteException;
+import exception.ValorInvalidoException;
+
 public class ContaPoupanca extends Conta {
     public ContaPoupanca() {
         super(TipoConta.POUPANCA);
@@ -8,11 +11,11 @@ public class ContaPoupanca extends Conta {
     @Override
     public void sacar(double valor) {
         if (valor <= 0) {
-            throw new IllegalArgumentException("Valor inválido.");
+            throw new ValorInvalidoException("O valor do saque deve ser maior que zero.");
         }
 
         if (valor > saldo) {
-            throw new IllegalArgumentException("Saldo insuficiente.");
+            throw new SaldoInsuficienteException("Saldo insuficiente.");
         }
 
         saldo -= valor;

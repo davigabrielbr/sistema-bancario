@@ -1,5 +1,7 @@
 package model;
 
+import exception.ValorInvalidoException;
+
 public abstract class Conta {
     protected double saldo;
     private static int proximoNumero = 1000;
@@ -13,7 +15,7 @@ public abstract class Conta {
 
     public void depositar(double valor) {
         if (valor <= 0) {
-            throw new IllegalArgumentException("Digite um valor maior que zero.");
+            throw new ValorInvalidoException("O valor do depósito deve ser maior que zero.");
         }
 
         saldo += valor;
