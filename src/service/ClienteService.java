@@ -6,7 +6,7 @@ import model.TipoConta;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static main.Main.*;
+import static util.InputUtil.*;
 
 public class ClienteService {
     public void criarConta(ArrayList<Cliente> clientes, Scanner scanner) {

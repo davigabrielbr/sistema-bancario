@@ -5,7 +5,7 @@ import model.Cliente;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static main.Main.*;
+import static util.InputUtil.*;
 
 public class ContaService {
     private final ClienteService clienteService = new ClienteService();
