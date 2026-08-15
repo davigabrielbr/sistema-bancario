@@ -4,6 +4,7 @@ import exception.ClienteNaoEncontradoException;
 import exception.CpfJaCadastradoException;
 import model.Cliente;
 import model.TipoConta;
+import model.TipoOperacao;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,7 +25,7 @@ public class ClienteService {
         Cliente cliente = new Cliente(nomeCliente, cpfCliente, tipoConta);
         clientes.add(cliente);
 
-        System.out.println("Conta criada com sucesso.");
+        System.out.println(TipoOperacao.CONTA_CRIADA.getMensagem());
     }
 
     public static boolean existeCpf(ArrayList<Cliente> clientes, String cpf) {
@@ -71,7 +72,7 @@ public class ClienteService {
 
     public void listarClientes(ArrayList<Cliente> clientes) {
         if (clientes.isEmpty()) {
-            System.out.println("Nenhum cliente cadastrado");
+            System.out.println("Nenhum cliente cadastrado.");
             return;
         }
 

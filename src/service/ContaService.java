@@ -1,6 +1,7 @@
 package service;
 
 import model.Cliente;
+import model.TipoOperacao;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ public class ContaService {
 
         cliente.getConta().depositar(valorDeposito);
 
-        System.out.println("Depósito realizado com sucesso.");
+        System.out.println(TipoOperacao.DEPOSITO.getMensagem());
     }
 
     public void sacar(ArrayList<Cliente> clientes, Scanner scanner) {
@@ -27,7 +28,7 @@ public class ContaService {
 
         cliente.getConta().sacar(valorSaque);
 
-        System.out.println("Saque realizado com sucesso.");
+        System.out.println(TipoOperacao.SAQUE.getMensagem());
     }
 
     public void transferir(ArrayList<Cliente> clientes, Scanner scanner) {
@@ -43,6 +44,6 @@ public class ContaService {
 
         origem.getConta().sacar(valor);
         destino.getConta().depositar(valor);
-        System.out.println("Transferência realizada com sucesso.");
+        System.out.println(TipoOperacao.TRANSFERENCIA.getMensagem());
     }
 }

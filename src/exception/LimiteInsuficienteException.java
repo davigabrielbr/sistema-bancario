@@ -1,6 +1,6 @@
 package exception;
 
-public class LimiteInsuficienteException extends RuntimeException {
+public class LimiteInsuficienteException extends IllegalArgumentException {
     public LimiteInsuficienteException(String message) {
         super(message);
     }
