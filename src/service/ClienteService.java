@@ -45,22 +45,20 @@ public class ClienteService {
     }
 
     public Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner scanner) {
-        System.out.print("Digite o CPF: ");
-        String cpf = scanner.nextLine().trim();
-
-        for (Cliente cliente : clientes) {
-            if (cliente.getCpf().equals(cpf)) {
-                return cliente;
-            }
-        }
-
-        throw new ClienteNaoEncontradoException("Cliente não encontrado.");
+        String cpf = lerCpf(scanner);
+        return buscarCliente(clientes, cpf);
     }
 
     public Cliente buscarCliente(ArrayList<Cliente> clientes, Scanner scanner, String mensagem) {
-        System.out.print("Digite o CPF da conta de " + mensagem + ": ");
-        String cpf = scanner.nextLine().trim();
+        String cpf = lerCpf(
+                scanner,
+                "Digite o CPF da conta de " + mensagem + ": "
+        );
 
+        return buscarCliente(clientes, cpf);
+    }
+
+    public Cliente buscarCliente(ArrayList<Cliente> clientes, String cpf) {
         for (Cliente cliente : clientes) {
             if (cliente.getCpf().equals(cpf)) {
                 return cliente;

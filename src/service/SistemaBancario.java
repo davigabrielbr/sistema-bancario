@@ -1,9 +1,9 @@
 package service;
 
 import model.Cliente;
+import util.InputUtil;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class SistemaBancario {
@@ -57,15 +57,7 @@ public class SistemaBancario {
         System.out.println("7 - Sair");
         System.out.print("Escolha uma opção: ");
 
-        try {
-            int numeroDigitado = scanner.nextInt();
-            scanner.nextLine();
-            return numeroDigitado;
-        } catch (InputMismatchException e) {
-            System.out.println("Digite apenas números.");
-            scanner.nextLine();
-            return 0;
-        }
+        return InputUtil.lerInt(scanner);
     }
 
     public static void sair () {

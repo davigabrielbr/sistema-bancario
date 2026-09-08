@@ -2,6 +2,7 @@ package util;
 
 import model.TipoConta;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputUtil {
@@ -14,8 +15,7 @@ public class InputUtil {
             System.out.println("2 - Poupança");
             System.out.print("Opção: ");
 
-            opcao = scanner.nextInt();
-            scanner.nextLine();
+            opcao = lerInt(scanner);
 
             switch (opcao) {
                 case 1:
@@ -47,11 +47,11 @@ public class InputUtil {
         return nomeCliente;
     }
 
-    public static String lerCpf(Scanner scanner) {
+    public static String lerCpf(Scanner scanner, String mensagem) {
         String cpfCliente;
 
         do {
-            System.out.print("Digite o seu cpf: ");
+            System.out.println(mensagem);
             cpfCliente = scanner.nextLine().trim();
 
             if (cpfCliente.isEmpty()) {
@@ -59,15 +59,43 @@ public class InputUtil {
             } else if (!cpfCliente.matches("\\d{11}")) {
                 System.out.println("O CPF deve conter exatamente 11 números.");
             }
-        } while (cpfCliente.length() != 11
-                || !cpfCliente.matches("\\d{11}"));
+        } while (!cpfCliente.matches("\\d{11}"));
+
         return cpfCliente;
+    }
+
+    public static String lerCpf(Scanner scanner) {
+        return lerCpf(scanner, "Digite o CPF:");
     }
 
     public static double lerValor(Scanner scanner, String mensagem) {
         System.out.print(mensagem);
-        double valor = scanner.nextDouble();
-        scanner.nextLine();
-        return valor;
+        return lerDouble(scanner);
+    }
+
+    public static int lerInt(Scanner scanner) {
+        while (true) {
+            try {
+                int valor = scanner.nextInt();
+                scanner.nextLine();
+                return valor;
+            } catch (InputMismatchException e) {
+                System.out.println("Digite apenas números.");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static double lerDouble(Scanner scanner) {
+        while (true) {
+            try {
+                double valor = scanner.nextDouble();
+                scanner.nextLine();
+                return valor;
+            } catch (InputMismatchException e) {
+                System.out.println("Digite um valor válido.");
+                scanner.nextLine();
+            }
+        }
     }
 }
