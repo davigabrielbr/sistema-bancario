@@ -16,6 +16,12 @@ public class Cliente {
         }
     }
 
+    public Cliente(String nome, String cpf, Conta conta) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.conta = conta;
+    }
+
     public String getNome() {
         return nome;
     }
