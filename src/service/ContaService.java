@@ -1,5 +1,6 @@
 package service;
 
+import exception.MesmaContaException;
 import model.Cliente;
 import model.TipoOperacao;
 
@@ -36,8 +37,7 @@ public class ContaService {
         Cliente destino = clienteService.buscarCliente(clientes, scanner, "destino");
 
         if (origem == destino) {
-            System.out.println("Não é possível transferir para a mesma conta.");
-            return;
+            throw new MesmaContaException("Não é possível transferir para a mesma conta.");
         }
 
         double valor = lerValor(scanner, "Digite o valor: ");
